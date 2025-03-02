@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
-import { images } from '../../../public/assets';
 import Image from 'next/image';
 import img from '../../../public/images/image';
 
@@ -48,8 +47,9 @@ const WhyPrepcoSection: React.FC = () => {
             What If Wellness Was Just a Click Away?
           </h3>
           <p className="text-xl text-gray-800 max-w-3xl mx-auto">
-            We've bundled 10+ essential services so you don't have to choose. Experience it all for ₹499.
-          </p>
+  We&#39;ve bundled 10+ essential services so you don&#39;t have to choose. Experience it all for ₹499.
+</p>
+
         </div>
         
         {/* Hook card */}
@@ -62,9 +62,10 @@ const WhyPrepcoSection: React.FC = () => {
                   Stop Searching. Start Healing.
                 </h4>
                 <p className="text-lg text-gray-700 mb-6">
-                  From online yoga to stress relief and diet plans — everything you need, just ₹499 for 30 days.
-                  We've combined 10+ essential health services into one seamless platform.
-                </p>
+  From online yoga to stress relief and diet plans — everything you need, just ₹499 for 30 days.
+  We&#39;ve combined 10+ essential health services into one seamless platform.
+</p>
+
                 <div className="inline-flex items-center space-x-2 text-teal-500 font-medium">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />

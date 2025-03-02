@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
-  }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 backdrop-blur-lg rounded-bl-3xl rounded-br-3xl ${scrolled ? "bg-white/90 shadow-lg py-3" : "bg-transparent py-5"}`}>
@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
           {/* Logo */}
           <Link href="/" className="relative z-10">
             <motion.div className="flex items-center" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Image src={img.logo} alt="logo"/>
+              <Image src={img.logo} alt="logo" width={100} height={50} />
             </motion.div>
           </Link>
 
