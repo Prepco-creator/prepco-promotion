@@ -1,8 +1,7 @@
 
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Clock, Coffee, Gift, Calendar, CheckCircle, HelpCircle, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
-import { images } from '../../../public/assets';
+import { Clock, Coffee,  Calendar, CheckCircle,  ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import img from '../../../public/images/image';
 

@@ -6,34 +6,34 @@ const SocialProofSection = () => {
   const [scrollY, setScrollY] = useState(0);
   const [animateStats, setAnimateStats] = useState(false);
   
-  const partners = [
-    { id: 1, name: 'HealthFirst' },
-    { id: 2, name: 'MediCare Plus' },
-    { id: 3, name: 'WellnessHub' },
-    { id: 4, name: 'FitLife' },
-    { id: 5, name: 'NutriTech' },
-  ];
+  // const partners = [
+  //   { id: 1, name: 'HealthFirst' },
+  //   { id: 2, name: 'MediCare Plus' },
+  //   { id: 3, name: 'WellnessHub' },
+  //   { id: 4, name: 'FitLife' },
+  //   { id: 5, name: 'NutriTech' },
+  // ];
 
-  const testimonials = [
-    {
-      id: 1,
-      text: "Prepco has transformed my approach to wellness completely!",
-      author: "Dr. Sharma, Cardiologist",
-      rating: 5
-    },
-    {
-      id: 2,
-      text: "The curated services saved me time and improved my health metrics.",
-      author: "Priya M., HR Director",
-      rating: 5
-    },
-    {
-      id: 3,
-      text: "Best wellness investment I've made this year.",
-      author: "Rahul K., Software Engineer",
-      rating: 4.5
-    }
-  ];
+  // const testimonials = [
+  //   {
+  //     id: 1,
+  //     text: "Prepco has transformed my approach to wellness completely!",
+  //     author: "Dr. Sharma, Cardiologist",
+  //     rating: 5
+  //   },
+  //   {
+  //     id: 2,
+  //     text: "The curated services saved me time and improved my health metrics.",
+  //     author: "Priya M., HR Director",
+  //     rating: 5
+  //   },
+  //   {
+  //     id: 3,
+  //     text: "Best wellness investment I've made this year.",
+  //     author: "Rahul K., Software Engineer",
+  //     rating: 4.5
+  //   }
+  // ];
 
   // Handle scroll position for parallax effects
   useEffect(() => {
