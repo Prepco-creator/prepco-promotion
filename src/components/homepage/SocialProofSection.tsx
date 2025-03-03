@@ -89,7 +89,7 @@ const SocialProofSection = () => {
   };
   
   // Background particle component
-  const BackgroundParticle = ({ index }: { index: number }) => {
+  const BackgroundParticle = () => {
     const size = Math.random() * 6 + 2;
     const initialX = Math.random() * 100;
     const initialY = Math.random() * 100;
@@ -224,7 +224,7 @@ const SocialProofSection = () => {
         
         {/* Floating particles */}
         {[...Array(30)].map((_, index) => (
-          <BackgroundParticle key={`particle-${index}`} index={index} />
+          <BackgroundParticle key={`particle-${index}`} />
         ))}
         
         {/* Floating health icons */}
