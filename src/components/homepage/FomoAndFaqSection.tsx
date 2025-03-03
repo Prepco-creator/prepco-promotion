@@ -84,11 +84,9 @@ const FomoAndFaqSection = () => {
   ];
 
   // Floating health bubble component
-  interface FloatingBubbleProps {
-    index: number;
-  }
+
   
-  const FloatingBubble: React.FC<FloatingBubbleProps> = ({ index }) => { 
+  const FloatingBubble = () => { 
     const size = Math.random() * 40 + 20;
     const initialX = Math.random() * 100;
     const initialY = Math.random() * 100;
@@ -167,7 +165,7 @@ const FomoAndFaqSection = () => {
           
           {/* Floating bubbles */}
           {[...Array(12)].map((_, index) => (
-            <FloatingBubble key={`bubble-${index}`} index={index} />
+            <FloatingBubble key={`bubble-${index}`}/>
           ))}
         </div>
         
