@@ -1,369 +1,307 @@
-"use client";
-import React, { useEffect, useState } from 'react';
-import { Star, Shield, Award, CheckCircle, Activity, Heart, Zap } from 'lucide-react';
+'use client';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
-const SocialProofSection = () => {
-  const [scrollY, setScrollY] = useState(0);
-  const [animateStats, setAnimateStats] = useState(false);
+
+
+
+interface TestimonialProps {
+  name: string;
+  location: string;
+  quote: string;
+  rating: number;
+  image: string;
+}
+
+const TestimonialsComponent: React.FC = () => {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
   
-  // const partners = [
-  //   { id: 1, name: 'HealthFirst' },
-  //   { id: 2, name: 'MediCare Plus' },
-  //   { id: 3, name: 'WellnessHub' },
-  //   { id: 4, name: 'FitLife' },
-  //   { id: 5, name: 'NutriTech' },
-  // ];
+  const testimonials: TestimonialProps[] = [
+    {
+      name: "Priya",
+      location: "Bangalore",
+      quote: "I lost 4 kgs & feel more energetic in just 30 days!",
+      rating: 5,
+      image: "/api/placeholder/80/80"
+    },
+    {
+      name: "Arjun",
+      location: "Chennai",
+      quote: "My sleep improved, and I feel less stressed than ever!",
+      rating: 5,
+      image: "/api/placeholder/80/80"
+    },
+    {
+      name: "Neha",
+      location: "Mumbai",
+      quote: "This plan made fitness EASY & fun. Totally worth it!",
+      rating: 4.8,
+      image: "/api/placeholder/80/80"
+    }
+  ];
 
-  // const testimonials = [
-  //   {
-  //     id: 1,
-  //     text: "Prepco has transformed my approach to wellness completely!",
-  //     author: "Dr. Sharma, Cardiologist",
-  //     rating: 5
-  //   },
-  //   {
-  //     id: 2,
-  //     text: "The curated services saved me time and improved my health metrics.",
-  //     author: "Priya M., HR Director",
-  //     rating: 5
-  //   },
-  //   {
-  //     id: 3,
-  //     text: "Best wellness investment I've made this year.",
-  //     author: "Rahul K., Software Engineer",
-  //     rating: 4.5
-  //   }
-  // ];
-
-  // Handle scroll position for parallax effects
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      
-      // Trigger stats animation when scrolled into view
-      const statsSection = document.getElementById('stats-section');
-      if (statsSection) {
-        const rect = statsSection.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          setAnimateStats(true);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Animation for counting up numbers
-  const AnimatedCounter: React.FC<{ end: number; duration?: number; prefix?: string; suffix?: string }> = ({ 
-    end, 
-    duration = 2000, 
-    prefix = '', 
-    suffix = '' 
-  }) => {
-    const [count, setCount] = useState(0);
-  
-    useEffect(() => {
-      if (!animateStats) return;
-  
-      let startTime: number;
-      let animationFrame: number;
-  
-      const animate = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = timestamp - startTime;
-        const percentage = Math.min(progress / duration, 1);
-  
-        setCount(Math.floor(percentage * end));
-  
-        if (progress < duration) {
-          animationFrame = requestAnimationFrame(animate);
-        }
-      };
-  
-      animationFrame = requestAnimationFrame(animate);
-      return () => cancelAnimationFrame(animationFrame);
-    }, [animateStats, end, duration]);
-  
-    return <span>{prefix}{count.toFixed(end % 1 === 0 ? 0 : 1)}{suffix}</span>;
-  };
-  
-  // Background particle component
-  const BackgroundParticle = ({ index }: { index: number }) => {
-    const size = Math.random() * 6 + 2;
-    const initialX = Math.random() * 100;
-    const initialY = Math.random() * 100;
-    const duration = Math.random() * 20 + 15;
-    const delay = Math.random() * 5;
-    const opacity = Math.random() * 0.2 + 0.05;
-
-    return (
-      <div
-        className="absolute rounded-full bg-teal-400"
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          left: `${initialX}%`,
-          top: `${initialY}%`,
-          opacity: opacity,
-          animation: `floatParticle ${duration}s infinite ease-in-out`,
-          animationDelay: `${delay}s`,
-        }}
-      />
-    );
-  };
-
-  // Health icon component with custom animations
-  const HealthIcon = ({ index }: { index: number }) => {
-    const icons = [
-      <Heart key="heart" size={16} />,
-      <Activity key="activity" size={16} />,
-      <Zap key="zap" size={16} />,
-      <CheckCircle key="check" size={16} />
-    ];
+    const interval = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
     
-    const initialX = Math.random() * 100;
-    const initialY = Math.random() * 100;
-    const duration = Math.random() * 25 + 20;
-    const delay = Math.random() * 10;
-    const size = Math.random() * 30 + 10;
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
 
-    return (
-      <div
-        className="absolute text-teal-600"
-        style={{
-          left: `${initialX}%`,
-          top: `${initialY}%`,
-          opacity: 0.1,
-          fontSize: `${size}px`,
-          animation: `floatIcon ${duration}s infinite ease-in-out, pulseIcon ${Math.random() * 4 + 3}s infinite ease-in-out`,
-          animationDelay: `${delay}s, ${delay + 1}s`,
-          transform: `rotate(${Math.random() * 360}deg)`,
-        }}
-      >
-        {icons[index % icons.length]}
-      </div>
-    );
-  };
-
-  // Wave SVG component
-  const WaveBackground = () => {
-    return (
-      <>
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-          <svg
-            className="relative block w-full h-32"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            style={{
-              transform: `translateY(${scrollY * 0.05}px)`,
-              transition: 'transform 0.3s ease-out',
-            }}
-          >
-            <path
-              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-              className="fill-teal-50 opacity-30"
-            ></path>
-            <path
-              d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-              className="fill-teal-100 opacity-20"
-              style={{
-                animation: 'waveAnimation 25s linear infinite',
-                animationDelay: '-2s',
-              }}
-            ></path>
-            <path
-              d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-              className="fill-cyan-100 opacity-20"
-              style={{
-                animation: 'waveAnimation 20s linear infinite',
-                animationDelay: '-5s',
-              }}
-            ></path>
+  const renderStars = (rating: number) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(
+          <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
-        </div>
-      </>
-    );
+        );
+      } else if (i - rating < 1) {
+        stars.push(
+          <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        );
+      } else {
+        stars.push(
+          <svg key={i} className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        );
+      }
+    }
+    return stars;
   };
 
   return (
-    <section id='success-stories' className="relative py-16 overflow-hidden">
-      {/* Enhanced Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-teal-50 via-white to-cyan-50 overflow-hidden">
-        {/* Animated gradient shapes */}
-        <div 
-          className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-teal-300 to-teal-100 opacity-10 blur-2xl"
-          style={{ 
-            top: '5%', 
-            left: '10%', 
-            transform: `translate(${scrollY * 0.05}px, ${scrollY * -0.02}px) rotate(${scrollY * 0.02}deg)`,
-            transition: 'transform 0.3s ease-out'
-          }}
-        />
-        <div 
-          className="absolute w-full h-96 rounded-full bg-gradient-to-l from-cyan-300 to-blue-100 opacity-10 blur-3xl"
-          style={{ 
-            top: '20%', 
-            right: '-20%', 
-            transform: `translate(${scrollY * -0.07}px, ${scrollY * 0.03}px) rotate(${scrollY * -0.01}deg)`,
-            transition: 'transform 0.3s ease-out'
-          }}
-        />
-        <div 
-          className="absolute w-80 h-80 rounded-full bg-gradient-to-tr from-green-200 to-teal-100 opacity-15 blur-2xl"
-          style={{ 
-            bottom: '10%', 
-            left: '30%', 
-            transform: `translate(${scrollY * 0.03}px, ${scrollY * -0.05}px) rotate(${scrollY * 0.03}deg)`,
-            transition: 'transform 0.3s ease-out'
-          }}
-        />
+    <div className="bg-gradient-to-br from-black via-gray-900 to-black min-h-screen flex items-center justify-center p-4">
+      <div className="max-w-6xl mx-auto w-full relative">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-500 rounded-full filter blur-3xl opacity-10 -z-10"></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-10 -z-10"></div>
         
-        {/* Animated wave SVG backgrounds */}
-        <WaveBackground />
-        
-        {/* Floating particles */}
-        {[...Array(30)].map((_, index) => (
-          <BackgroundParticle key={`particle-${index}`} index={index} />
-        ))}
-        
-        {/* Floating health icons */}
-        {[...Array(15)].map((_, index) => (
-          <HealthIcon key={`icon-${index}`} index={index} />
-        ))}
-        
-        {/* Animated mesh background */}
-        <div 
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, teal 1px, transparent 0)',
-            backgroundSize: '30px 30px',
-            animation: 'meshAnimation 40s linear infinite',
-          }}
-        />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10 w-[96%]">
-        <div className="text-center mb-12 opacity-0 animate-fade-in-up" style={{animation: 'fadeInUp 1s forwards'}}>
-          <h2 className="text-3xl md:text-4xl font-bold text-teal-600 mb-4">Trusted by Thousands Getting Healthier</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-xl">Join our community of health-conscious individuals and leading organizations who have made the smart choice for their wellness journey.</p>
-        </div>
-
-        {/* Stats Counter */}
-        <div id="stats-section" className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className={`bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg text-center transform transition-all duration-500 hover:scale-105 ${animateStats ? 'animate-fade-in-left' : 'opacity-0'}`} style={{animation: animateStats ? 'fadeInLeft 0.6s forwards' : 'none'}}>
-            <div className="flex justify-center mb-4">
-              <Star className="h-12 w-12 text-yellow-400 animate-pulse" />
+        {/* Main Content */}
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="flex flex-col items-center mb-16">
+            <div className="inline-block bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-2 rounded-full mb-4 shadow-lg shadow-emerald-500/20">
+              <h2 className="text-white text-sm font-bold tracking-wide">TRANSFORMING LIVES</h2>
             </div>
-            <h3 className="text-4xl font-bold text-teal-600 mb-2">
-              {animateStats ? <AnimatedCounter end={4.9} duration={2000} suffix="/5" /> : "0/5"}
-            </h3>
-            <p className="text-gray-600 text-lg md:text-xl">Average User Rating</p>
-            <div className="flex justify-center mt-3">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star key={star} className={`h-5 w-5 text-yellow-400 fill-yellow-400 transition-all duration-300 ${animateStats ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: `${star * 200}ms` }} />
-              ))}
+            <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-6 tracking-tight">
+              Results That <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-300">Speak</span> For Themselves
+            </h1>
+            <div className="flex items-center gap-3 mb-6 bg-white/5 backdrop-blur-sm rounded-full py-2 px-4 border border-white/10">
+              <div className="flex">
+                {renderStars(4.9)}
+              </div>
+              <span className="text-white font-bold">4.9</span>
+              <span className="text-gray-300">|</span>
+              <span className="text-gray-300">Based on 10,000+ reviews</span>
             </div>
           </div>
           
-          <div className={`bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg text-center transform transition-all duration-500 hover:scale-105 ${animateStats ? 'animate-fade-in-up' : 'opacity-0'}`} style={{animation: animateStats ? 'fadeInUp 0.6s forwards' : 'none', animationDelay: '0.2s'}}>
-            <div className="flex justify-center mb-4">
-              <Shield className="h-12 w-12 text-teal-600" />
+          {/* Testimonials */}
+          <div className="mb-16">
+         {/* Desktop View */}
+<div className="hidden md:block relative h-96">
+  {testimonials.map((testimonial, index) => {
+    // Calculate position based on activeTestimonial
+    const position = (index - activeTestimonial + testimonials.length) % testimonials.length;
+    
+    // Only render the 3 visible cards (left, center, right)
+    if (position > 2) return null;
+    
+    // Calculate styling for each position
+    let styling = {};
+    const className = "absolute transform transition-all duration-500 ease-in-out";
+    
+    if (position === 0) {
+      // Left card
+      styling = {
+        left: "calc(50% - 450px)",
+        transform: "rotateY(-15deg) scale(0.85)",
+        opacity: 0.7,
+        zIndex: 10,
+        transformOrigin: "right center"
+      };
+    } else if (position === 1) {
+      // Center card
+      styling = {
+        left: "50%",
+        transform: "rotateY(0deg) scale(1)",
+        opacity: 1,
+        zIndex: 30,
+        marginLeft: "-225px"
+      };
+    } else if (position === 2) {
+      // Right card
+      styling = {
+        left: "calc(50% + 450px)",
+        transform: "rotateY(15deg) scale(0.85)",
+        opacity: 0.7,
+        zIndex: 10,
+        marginLeft: "-450px",
+        transformOrigin: "left center"
+      };
+    }
+    
+    return (
+      <div 
+        key={index} 
+        className={className}
+        style={{
+          ...styling,
+          maxWidth: "450px",
+        }}
+      >
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 shadow-xl border border-white/10 backdrop-blur-md h-full">
+          <div className="flex justify-between items-start mb-6">
+            <div className="flex items-center">
+              <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-emerald-500 mr-4 shadow-md shadow-emerald-500/20">
+                <Image 
+                  src={testimonial.image} 
+                  alt={testimonial.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-lg">{testimonial.name}</h3>
+                <p className="text-emerald-400 font-medium text-sm">{testimonial.location}</p>
+                <div className="flex mt-1">
+                  {renderStars(testimonial.rating)}
+                </div>
+              </div>
             </div>
-            <h3 className="text-4xl font-bold text-teal-600 mb-2">
-              {animateStats ? <AnimatedCounter end={100} duration={2000} suffix="%" /> : "0%"}
-            </h3>
-            <p className="text-gray-600 text-lg md:text-xl ">Trusted by Healthcare Experts</p>
-            <p className="text-base text-gray-500 mt-3">Verified by medical professionals</p>
-          </div>
-          
-          <div className={`bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg text-center transform transition-all duration-500 hover:scale-105 ${animateStats ? 'animate-fade-in-right' : 'opacity-0'}`} style={{animation: animateStats ? 'fadeInRight 0.6s forwards' : 'none', animationDelay: '0.4s'}}>
-            <div className="flex justify-center mb-4">
-              <Award className="h-12 w-12 text-teal-600" />
+            <div className="bg-emerald-500/10 p-1 rounded-md">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-emerald-500">
+                <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-            <h3 className="text-4xl font-bold text-teal-600 mb-2">
-              {animateStats ? <AnimatedCounter end={25} duration={2000} suffix="+" /> : "0+"}
-            </h3>
-            <p className="text-gray-600 text-lg md:text-xl ">Premium Wellness Partners</p>
-            <p className="text-base text-gray-500 mt-3">Top-tier health & wellness brands</p>
           </div>
-        </div>
-        
-        <div className="mt-16 text-center">
-          <div className="relative inline-block group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-600 to-cyan-400 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse-slow"></div>
-            <button className="relative px-8 py-4 bg-gradient-to-br from-teal-500 to-teal-600 text-white text-xl font-bold rounded-lg transform transition-all duration-500 hover:shadow-xl hover:translate-y-[-2px] flex items-center">
-              <span>Join Thousands Getting Healthier</span>
-              <CheckCircle className="ml-2 h-5 w-5 z-10" />
-            </button>
+          <div className="relative mb-6">
+            <svg className="absolute top-0 left-0 text-emerald-500/30 w-10 h-10 -translate-x-3 -translate-y-3" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391C14.017 10.97 16.318 9 19.05 9h.929V2.383C19.232 2.185 17.678 2 16.17 2c-5.345 0-8.786 3.881-8.786 10.873V21h6.633z" />
+              <path d="M23.078 21v-7.391C23.078 10.97 25.379 9 28.111 9h.93V2.383C28.293 2.185 26.739 2 25.231 2c-5.345 0-8.786 3.881-8.786 10.873V21h6.633z" />
+            </svg>
+            <p className="text-white text-xl font-medium pl-6 leading-relaxed">&quot;{testimonial.quote}&quot;</p>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <div className="h-3 w-3 rounded-full bg-emerald-500 mr-2"></div>
+              <span className="text-white text-sm">Verified Purchase</span>
+            </div>
+            <div className="text-emerald-400 text-sm font-medium">30-Day Program</div>
           </div>
         </div>
       </div>
-      
-      {/* Enhanced keyframe animations */}
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fadeInLeft {
-          from { opacity: 0; transform: translateX(-20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes fadeInRight {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-        
-        @keyframes floatParticle {
-          0% { transform: translate(0, 0); }
-          25% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 20 - 10}px); }
-          50% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 20 - 10}px); }
-          75% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 20 - 10}px); }
-          100% { transform: translate(0, 0); }
-        }
-        
-        @keyframes floatIcon {
-          0% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(${Math.random() * 50 - 25}px, ${Math.random() * 40 - 20}px) rotate(${Math.random() * 20}deg); }
-          66% { transform: translate(${Math.random() * 50 - 25}px, ${Math.random() * 40 - 20}px) rotate(${Math.random() * -20}deg); }
-          100% { transform: translate(0, 0) rotate(0deg); }
-        }
-        
-        @keyframes pulseIcon {
-          0%, 100% { opacity: 0.1; }
-          50% { opacity: 0.2; }
-        }
-        
-        @keyframes waveAnimation {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        
-        @keyframes meshAnimation {
-          0% { transform: translateX(0) translateY(0); }
-          100% { transform: translateX(-30px) translateY(-30px); }
-        }
-        
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.6; }
-        }
-      `}</style>
-    </section>
-  );
-};
+    );
+  })}
+  
+  {/* Navigation buttons */}
+  <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-4 mt-8">
+    <button 
+      onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+      className="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 p-2 rounded-full transition-all"
+      aria-label="Previous testimonial"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+    <button 
+      onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
+      className="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 p-2 rounded-full transition-all"
+      aria-label="Next testimonial"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+  </div>
+</div>
+{/* Mobile View */}
+<div className="md:hidden">
+  <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 shadow-xl border border-white/10 backdrop-blur-md">
+    <div className="flex justify-between items-start mb-6">
+      <div className="flex items-center">
+        <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-emerald-500 mr-4 shadow-md shadow-emerald-500/20">
+          <Image 
+            src={testimonials[activeTestimonial].image} 
+            alt={testimonials[activeTestimonial].name}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div>
+          <h3 className="text-white font-bold">{testimonials[activeTestimonial].name}</h3>
+          <p className="text-emerald-400 font-medium text-sm">{testimonials[activeTestimonial].location}</p>
+          <div className="flex mt-1">
+            {renderStars(testimonials[activeTestimonial].rating)}
+          </div>
+        </div>
+      </div>
+      <div className="bg-emerald-500/10 p-1 rounded-md">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-emerald-500">
+          <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div className="relative mb-6">
+      <svg className="absolute top-0 left-0 text-emerald-500/30 w-8 h-8 -translate-x-3 -translate-y-3" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391C14.017 10.97 16.318 9 19.05 9h.929V2.383C19.232 2.185 17.678 2 16.17 2c-5.345 0-8.786 3.881-8.786 10.873V21h6.633z" />
+        <path d="M23.078 21v-7.391C23.078 10.97 25.379 9 28.111 9h.93V2.383C28.293 2.185 26.739 2 25.231 2c-5.345 0-8.786 3.881-8.786 10.873V21h6.633z" />
+      </svg>
+      <p className="text-white text-lg font-medium pl-6 leading-relaxed">&quot;{testimonials[activeTestimonial].quote}&quot;</p>
+    </div>
+    <div className="flex justify-between items-center">
+      <div className="flex items-center">
+        <div className="h-3 w-3 rounded-full bg-emerald-500 mr-2"></div>
+        <span className="text-white text-sm">Verified Purchase</span>
+      </div>
+      <div className="text-emerald-400 text-sm font-medium">30-Day Program</div>
+    </div>
+  </div>
+  
+  {/* Mobile Pagination */}
+  <div className="flex justify-center mt-6 gap-2">
+    {testimonials.map((_, index) => (
+      <button 
+        key={index} 
+        onClick={() => setActiveTestimonial(index)}
+        className={`w-2 h-2 rounded-full transition-all ${index === activeTestimonial ? 'bg-emerald-500 w-6' : 'bg-gray-600'}`}
+        aria-label={`View testimonial ${index + 1}`}
+      />
+    ))}
+  </div>
+  
+  {/* Additional mobile trust indicators */}
+  <div className="mt-8 flex items-center justify-center gap-4">
+    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+      <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+      </svg>
+    </div>
+    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+      <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+    </div>
+    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+      <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+</div>
+</div>
 
-export default SocialProofSection;
+</div>
+
+</div>
+  )}
+  export default TestimonialsComponent;

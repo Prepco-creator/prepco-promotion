@@ -1,218 +1,246 @@
+// WhyPrepcoSection.tsx
 "use client";
-import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import img from '../../../public/images/image';
+import React, { useState, useEffect } from 'react';
 
 const WhyPrepcoSection: React.FC = () => {
-  const animatedCardsRef = useRef<HTMLDivElement>(null);
-  
+  // Testimonial data array
+  const testimonials = [
+    {
+      quote: "I never thought I could change my life in just 30 days. This plan made it possible!",
+      name: "Priya",
+      result: "lost 8kg in 30 days"
+    },
+    {
+      quote: "Following this program gave me more energy and confidence than I've had in years.",
+      name: "Rahul",
+      result: "dropped 2 sizes in 30 days"
+    },
+    {
+      quote: "The meal plans were so easy to follow. I've finally found a healthy lifestyle I can stick with!",
+      name: "Anjali",
+      result: "lost 6kg and improved cholesterol"
+    },
+    {
+      quote: "From struggling to walk up stairs to running 5K - this program changed everything for me.",
+      name: "Vikram",
+      result: "improved fitness by 70%"
+    }
+  ];
+
+  // Before & After pairs data
+  const transformationPairs = [
+    {
+      id: 1,
+      beforeLabel: "BEFORE",
+      afterLabel: "AFTER",
+      beforeBg: "from-gray-500 to-gray-700",
+      afterBg: "from-emerald-500 to-emerald-700"
+    },
+    {
+      id: 2,
+      beforeLabel: "DAY 1",
+      afterLabel: "DAY 30",
+      beforeBg: "from-gray-600 to-gray-800",
+      afterBg: "from-teal-500 to-teal-700"
+    },
+    {
+      id: 3,
+      beforeLabel: "START",
+      afterLabel: "FINISH",
+      beforeBg: "from-gray-700 to-gray-900",
+      afterBg: "from-cyan-500 to-cyan-700"
+    }
+  ];
+
+  // State for current indices
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+  const [currentTransformationIndex, setCurrentTransformationIndex] = useState(0);
+
+  // Auto-rotate content
   useEffect(() => {
-    if (!animatedCardsRef.current) return;
-    
-    const cards = animatedCardsRef.current.querySelectorAll('.service-card');
-    cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add('show');
-      }, 300 * index);
-    });
-    
+    const testimonialInterval = setInterval(() => {
+      setCurrentTestimonialIndex(prevIndex => 
+        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Rotate testimonials every 5 seconds
+
+    const transformationInterval = setInterval(() => {
+      setCurrentTransformationIndex(prevIndex => 
+        prevIndex === transformationPairs.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 7000); // Rotate transformations every 7 seconds (staggered timing)
+
+    // Cleanup on unmount
     return () => {
-      cards.forEach(card => {
-        card.classList.remove('show');
-      });
+      clearInterval(testimonialInterval);
+      clearInterval(transformationInterval);
     };
-  }, []);
+  }, [testimonials.length, transformationPairs.length]);
+
+  const currentTestimonial = testimonials[currentTestimonialIndex];
+  const currentTransformation = transformationPairs[currentTransformationIndex];
 
   return (
-    <div id='why-prepco' className="relative w-full overflow-hidden bg-teal-50 pt-16 pb-24">
-      {/* Background shapes */}
-      <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-teal-200/20 blur-3xl"></div>
-      <div className="absolute top-1/2 -left-48 w-96 h-96 rounded-full bg-teal-300/30 blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-cyan-200/20 blur-3xl"></div>
-      
-      {/* Ornamental elements */}
-      <div className="absolute top-40 left-10 w-8 h-8 rounded-full bg-teal-400/50 animate-pulse-slow"></div>
-      <div className="absolute top-60 right-16 w-6 h-6 rounded-full bg-teal-500/40 animate-ping-slow"></div>
-      <div className="absolute bottom-32 left-1/4 w-10 h-10 rounded-full bg-teal-300/60 animate-bounce-gentle"></div>
-      
-      {/* Content container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section heading with animated underline */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-teal-700 mb-4">Why Prepco?</h2>
-          <div className="relative mx-auto w-32 h-1 bg-teal-200 rounded-full mb-6">
-            <div className="absolute top-0 left-0 h-full w-1/3 bg-teal-500 rounded-full animate-underline"></div>
+    <div className="bg-black py-16 lg:py-20 ">
+      <div className="container mx-auto px-4 pt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* Left Side - Emotional Content */}
+          <div className="space-y-6">
+            {/* Section Title with Premium Styling */}
+            <div className="inline-block relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-500 blur-sm opacity-70 rounded-lg"></div>
+              <div className="relative bg-gray-900 border border-emerald-500/30 rounded-lg px-6 py-2">
+                <h2 className="text-xl font-bold text-white">Why This Plan?</h2>
+              </div>
+            </div>
+            
+            {/* Emotional Headline */}
+            <h3 className="text-3xl lg:text-4xl font-bold text-white">
+              Struggling with your health? <span className="text-emerald-400">We get it.</span>
+            </h3>
+            
+            {/* Pain Points - Styled for Premium Look */}
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-xl p-5 border border-gray-700">
+              <p className="text-gray-300 text-lg mb-4">
+                Diets don&apos;t stick. Gyms feel intimidating. Wellness plans cost a fortune.
+              </p>
+              <p className="text-2xl font-bold text-white">
+                Not anymore!
+              </p>
+            </div>
+            
+            {/* Benefits Section */}
+            <div className="space-y-4">
+              <h4 className="text-xl font-semibold text-white">
+                With <span className="text-emerald-400">Prepco&apos;s 30-Day Plan</span>, you get:
+              </h4>
+              
+              {/* Premium-styled Benefits List */}
+              <div className="space-y-3">
+                <div className="flex items-start bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-4 border-l-4 border-emerald-500 shadow-lg">
+                  <span className="text-emerald-400 mr-3 text-lg mt-0.5">✅</span>
+                  <div>
+                    <p className="text-white font-semibold">A structured, step-by-step fitness & wellness program</p>
+                    <p className="text-gray-400 text-sm mt-1">Tailored to your body and goals</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-4 border-l-4 border-emerald-500 shadow-lg">
+                  <span className="text-emerald-400 mr-3 text-lg mt-0.5">✅</span>
+                  <div>
+                    <p className="text-white font-semibold">Zero guesswork – We take care of everything</p>
+                    <p className="text-gray-400 text-sm mt-1">Just follow the plan and see results</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-4 border-l-4 border-emerald-500 shadow-lg">
+                  <span className="text-emerald-400 mr-3 text-lg mt-0.5">✅</span>
+                  <div>
+                    <p className="text-white font-semibold">A complete health solution, cheaper than your daily chai!</p>
+                    <p className="text-gray-400 text-sm mt-1">Invest in yourself for just ₹16 per day</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          
           </div>
-          <h3 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400 mb-4">
-            What If Wellness Was Just a Click Away?
-          </h3>
-          <p className="text-xl text-gray-800 max-w-3xl mx-auto">
-  We&#39;ve bundled 10+ essential services so you don&#39;t have to choose. Experience it all for ₹499.
-</p>
-
-        </div>
-        
-        {/* Hook card */}
-        <div className="relative bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-teal-100 overflow-hidden mb-16 transform transition-all duration-500 hover:shadow-teal-200/50 hover:scale-[1.01]">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-400 to-teal-600"></div>
-          <div className="p-8 md:p-10">
-            <div className="flex flex-col md:flex-row md:items-center gap-8">
-              <div className="md:w-2/3">
-                <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  Stop Searching. Start Healing.
-                </h4>
-                <p className="text-lg text-gray-700 mb-6">
-  From online yoga to stress relief and diet plans — everything you need, just ₹499 for 30 days.
-  We&#39;ve combined 10+ essential health services into one seamless platform.
-</p>
-
-                <div className="inline-flex items-center space-x-2 text-teal-500 font-medium">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span>Get a taste of our full experience for just ₹499</span>
+          
+          {/* Right Side - Visual Content */}
+          <div className="relative">
+            {/* Premium Glow Effect */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/30 via-teal-500/30 to-emerald-500/30 rounded-2xl blur-xl opacity-70"></div>
+            
+            {/* Premium Image Container */}
+            <div className="relative grid grid-cols-2 gap-3 p-4 bg-gray-900 rounded-xl border border-gray-700">
+              {/* Before & After Transformation - Now with auto-rotation */}
+              <div className="space-y-3">
+                <div className="relative h-48 overflow-hidden rounded-lg transition-all duration-700">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                    <div className={`w-28 h-28 rounded-full bg-gradient-to-br ${currentTransformation.beforeBg} flex items-center justify-center transition-all duration-700`}>
+                      <span className="text-gray-300 text-sm font-medium">{currentTransformation.beforeLabel}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative h-48 overflow-hidden rounded-lg transition-all duration-700">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/40 to-gray-900 flex items-center justify-center">
+                    <div className={`w-28 h-28 rounded-full bg-gradient-to-br ${currentTransformation.afterBg} flex items-center justify-center transition-all duration-700`}>
+                      <span className="text-white text-sm font-medium">{currentTransformation.afterLabel}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               
-              <div className="md:w-1/3 flex justify-center">
-                <div className="relative w-32 h-32 md:w-40 md:h-40">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400 to-teal-600 opacity-10 animate-ping-slow"></div>
-                  <div className="absolute inset-2 rounded-full bg-gradient-to-r from-teal-400 to-teal-600 opacity-40"></div>
-                  <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-3xl md:text-4xl">
-                    ₹499
+              {/* Emotional Testimonial - Now with auto-rotation */}
+              <div className="space-y-3">
+                <div className="relative h-64 overflow-hidden rounded-lg">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center mb-4">
+                      <span className="text-white text-2xl font-bold">&quot;</span>
+                    </div>
+                    <div className="h-16 flex items-center">
+                      <p className="text-white text-center text-sm transition-opacity duration-500">
+                        {currentTestimonial.quote}
+                      </p>
+                    </div>
+                    <p className="text-emerald-400 text-center text-xs mt-4 transition-opacity duration-500">
+                      - {currentTestimonial.name}, {currentTestimonial.result}
+                    </p>
                   </div>
-                  <svg className="absolute inset-0 w-full h-full animate-spin-slow" viewBox="0 0 100 100">
-                    <path d="M 50 0 A 50 50 0 0 1 100 50" fill="none" stroke="rgba(20, 184, 166, 0.3)" strokeWidth="4" strokeDasharray="6 4" />
-                    <path d="M 100 50 A 50 50 0 0 1 50 100" fill="none" stroke="rgba(20, 184, 166, 0.2)" strokeWidth="4" strokeDasharray="6 4" />
-                    <path d="M 50 100 A 50 50 0 0 1 0 50" fill="none" stroke="rgba(20, 184, 166, 0.3)" strokeWidth="4" strokeDasharray="6 4" />
-                    <path d="M 0 50 A 50 50 0 0 1 50 0" fill="none" stroke="rgba(20, 184, 166, 0.2)" strokeWidth="4" strokeDasharray="6 4" />
-                  </svg>
+                </div>
+                
+                {/* Emotional Stats */}
+                <div className="relative h-32 overflow-hidden rounded-lg">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center p-4">
+                    <div className="grid grid-cols-3 gap-2 w-full">
+                      <div className="text-center">
+                        <p className="text-emerald-400 text-2xl font-bold">94%</p>
+                        <p className="text-gray-300 text-xs">Complete the plan</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-emerald-400 text-2xl font-bold">30+</p>
+                        <p className="text-gray-300 text-xs">Days of support</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-emerald-400 text-2xl font-bold">100%</p>
+                        <p className="text-gray-300 text-xs">Satisfaction</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
             </div>
           </div>
+          
         </div>
-        
-        {/* What You Get heading */}
-        <h4 id='benefits' className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-8">
-          What You Get:
-        </h4>
-        
-        {/* Service cards - animated on scroll */}
-        <div 
-          ref={animatedCardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {[
-            {
-              title: "Online Fitness & Yoga Classes",
-              description: "Live and on-demand classes for all fitness levels",
-              icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-              ),
-              image: img.yoga,
-            },
-            {
-              title: "Personalized Diet & Nutrition Plan",
-              description: "Custom meal plans based on your preferences",
-              icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              ),
-              image: img.diet,
-            },
-            {
-              title: "Stress Management & Relaxation Sessions",
-              description: "Guided meditation and mindfulness practices",
-              icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              ),
-              image: img.stress,
-            },
-            {
-              title: "Exclusive Discounts on Healthcare Services",
-              description: "Special rates with our partner providers",
-              icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              ),
-              image: img.discount,
-            }
-          ].map((service, index) => (
-            <div 
-              key={index}
-              className="service-card opacity-0 translate-y-8 transition-all duration-700 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg border border-teal-100 overflow-hidden transform hover:scale-105 hover:shadow-xl hover:border-teal-200"
-            >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-400 to-teal-600"></div>
-              <div className="p-6 flex flex-col items-center">
-                <Image
-                  src={service.image} 
-                  alt={service.title}
-                  className="w-16 h-16 rounded-full object-cover mb-3"
-                />
-                <div className="w-20 h-20 rounded-full bg-teal-100 flex items-center justify-center mb-4 text-teal-600">
-                  {service.icon}
-                </div>
-                <h5 className="text-lg font-semibold text-gray-900 text-center mb-2">
-                  {service.title}
-                </h5>
-                <p className="text-gray-600 text-center text-sm">
-                  {service.description}
-                </p>
-              </div>
+          {/* Emotional Call to Action */}
+          <div className="pt-6 text-center">
+              <p className="text-2xl font-bold text-white mb-6">
+                This isn&apos;t just a plan. It&apos;s <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-300">your transformation.</span>
+              </p>
+              <p className="text-lg text-gray-300 mb-6">
+                Ready to feel the difference?
+              </p>
+              
+            
             </div>
-          ))}
-        </div>
-        
-        {/* Testimonial Section */}
-        {/* <div className="mt-16 bg-white/70 backdrop-blur-sm rounded-xl shadow-lg p-8 border border-teal-100">
-          <h4 className="text-2xl font-bold text-gray-900 text-center mb-8">
-            What Our Customers Say
-          </h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow p-6 relative">
-              <div className="text-teal-500 text-4xl absolute -top-4 -left-2">"</div>
-              <p className="text-gray-700 italic mb-4">Prepco transformed my approach to wellness. The convenience of having everything in one place is game-changing!</p>
-              <div className="flex items-center">
-                <img src="/api/placeholder/40/40" alt="Customer" className="w-10 h-10 rounded-full mr-3" />
-                <div>
-                  <p className="font-medium text-gray-900">Aisha P.</p>
-                  <p className="text-sm text-gray-500">Mumbai</p>
+          {/* CTA Buttons - Premium Style */}
+          <div className="space-y-3">
+                <button className="w-full bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 transition-all duration-300 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg shadow-emerald-500/20 border border-emerald-400/30 relative overflow-hidden group">
+                  <div className="absolute inset-0 w-1/3 bg-white/20 skew-x-12 group-hover:translate-x-96 transition-transform duration-700"></div>
+                  <span>Take the First Step – Join for ₹499!</span>
+                </button>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <button className="bg-gray-800 hover:bg-gray-700 border border-emerald-500/30 transition-colors duration-300 text-white font-medium py-3 px-4 rounded-lg">
+                    Ditch the Excuses – Start Now!
+                  </button>
+                  <button className="bg-gray-800 hover:bg-gray-700 border border-emerald-500/30 transition-colors duration-300 text-white font-medium py-3 px-4 rounded-lg">
+                    Your 30-Day Health Fix Starts Here!
+                  </button>
                 </div>
               </div>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6 relative">
-              <div className="text-teal-500 text-4xl absolute -top-4 -left-2">"</div>
-              <p className="text-gray-700 italic mb-4">The yoga classes and nutrition plans work perfectly together. I've never felt better, and all for just ₹499!</p>
-              <div className="flex items-center">
-                <img src="/api/placeholder/40/40" alt="Customer" className="w-10 h-10 rounded-full mr-3" />
-                <div>
-                  <p className="font-medium text-gray-900">Rahul M.</p>
-                  <p className="text-sm text-gray-500">Delhi</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-        
-        {/* CTA button */}
-        <div className="mt-16 text-center">
-          <div className="relative inline-block group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-600 to-cyan-400 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse-slow"></div>
-            <button className="relative px-8 py-4 bg-gradient-to-br from-teal-500 to-teal-600 text-white text-xl font-bold rounded-lg transform transition-all duration-500 hover:shadow-xl hover:translate-y-[-2px] flex items-center">
-              <span>Start Your Wellness Journey</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );

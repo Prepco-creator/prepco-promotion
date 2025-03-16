@@ -1,134 +1,148 @@
-"use client";
-import React, { useEffect, useRef } from 'react';
+//  HeroSection.tsx
+import React from 'react';
 
-const HeroSection: React.FC = () => {
-  const bubbleRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const createBubble = () => {
-      if (!bubbleRef.current) return;
-      
-      const bubble = document.createElement('div');
-      const size = Math.random() * 80 + 20;
-      const position = Math.random() * 100;
-      
-      bubble.className = 'absolute rounded-full bg-teal-400/20 backdrop-blur-sm z-0 animate-float';
-      bubble.style.width = `${size}px`;
-      bubble.style.height = `${size}px`;
-      bubble.style.left = `${position}%`;
-      bubble.style.bottom = '-100px';
-      bubble.style.animationDuration = `${Math.random() * 5 + 8}s`;
-      
-      bubbleRef.current.appendChild(bubble);
-      
-      setTimeout(() => {
-        bubble.remove();
-      }, 13000);
-    };
-    
-    const interval = setInterval(createBubble, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
+const  HeroSection: React.FC = () => {
   return (
-    <div className="relative w-full overflow-hidden bg-gradient-to-br from-teal-50 via-teal-100 to-teal-200 min-h-[600px]">
-      {/* Animated bubbles container */}
-      <div ref={bubbleRef} className="absolute inset-0 overflow-hidden"></div>
-      
-      {/* Background elements */}
-      <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-teal-300/30 blur-3xl"></div>
-      <div className="absolute top-40 right-20 w-60 h-60 rounded-full bg-cyan-300/30 blur-2xl"></div>
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-emerald-300/20 blur-3xl"></div>
-      
-      {/* Animated wave */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 overflow-hidden">
-        <svg className="absolute bottom-0 w-full h-40" viewBox="0 0 1440 320" preserveAspectRatio="none">
-          <path 
-            className="fill-teal-400/30 animate-wave" 
-            fillOpacity="1" 
-            d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
-        </svg>
-        <svg className="absolute bottom-0 w-full h-32" viewBox="0 0 1440 320" preserveAspectRatio="none">
-          <path 
-            className="fill-teal-500/20 animate-wave-slow" 
-            fillOpacity="1" 
-            d="M0,288L48,266.7C96,245,192,203,288,181.3C384,160,480,160,576,170.7C672,181,768,203,864,213.3C960,224,1056,224,1152,208C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
-        </svg>
-      </div>
-      
-      {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center">
-        {/* Glowing price tag */}
-       
-        
-        {/* Content card with animation */}
-        <div className="w-full max-w-3xl bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-teal-100 transform transition-all duration-700 hover:scale-[1.02] hover:shadow-teal-200/50">
-          <div className="relative p-8 md:p-12">
-            {/* Decorative circle */}
-            <div className="absolute -top-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 opacity-20"></div>
+    <div className="bg-black min-h-screen flex items-center">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center h-screen py-6">
+          {/* Left Content */}
+          <div className="space-y-4 lg:space-y-6">
+            {/* Premium Badge */}
+            <div className="inline-block bg-gradient-to-r from-emerald-600 to-teal-500 rounded-full px-3 py-1">
+              <p className="text-xs font-bold uppercase tracking-wider">Premium Offer</p>
+            </div>
             
-            <h1 className="relative text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400 leading-tight mb-6">
-              Test Drive Your Healthiest Life for ₹499
+            {/* Main Headline - More Compact */}
+            <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-white">
+              Transform Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-300">Health</span> in 30 Days
             </h1>
             
-            
-            <p className="text-xl md:text-2xl text-teal-700 mb-10">
-              Try 6 curated wellness services + exclusive discounts. 
-              <span className="font-bold">No strings attached.</span>
-            </p>
-            <div className='flex  flex-wrap items-center gap-3.5'>
-            {/* Button that morphs on hover */}
-            <div className="relative group inline-block">
-              <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-teal-400 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse-slow"></div>
-              <button className="relative px-10 py-4 bg-gradient-to-br from-teal-500 to-teal-600 text-white text-lg font-bold rounded-lg transform transition-all duration-500 hover:shadow-[0_10px_25px_-5px_rgba(20,184,166,0.4)] hover:translate-y-[-2px] flex items-center">
-                <span>Claim Your Offer</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </button>
-            </div>
-            <div className="inline-flex items-center mt-4 sm:mt-0 ">
-              <div className="relative flex items-center bg-gradient-to-r from-teal-50 to-teal-100 rounded-lg p-2 border border-teal-200 shadow-md">
-                <div className="flex items-center mr-3">
-                  <span className="line-through text-teal-500 text-xl">₹1,999</span>
-                </div>
-                <div className="flex items-center bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-md px-3 py-1 shadow-sm">
-                  <span className="font-bold text-2xl">₹499</span>
-                </div>
-                <div className="absolute -top-5 -right-4 bg-yellow-400 text-yellow-800 text-lg font-bold rounded-full py-1 px-2 shadow-md border border-yellow-500 animate-pulse-slow">
-                  75% OFF
+            {/* Price Tag - More Compact */}
+            <div className="flex items-center gap-3">
+              <div className="relative inline-block">
+                <div className="absolute inset-0 bg-emerald-500 blur-sm opacity-30 rounded-lg"></div>
+                <div className="relative bg-gradient-to-r from-emerald-600 to-emerald-500 px-4 py-2 rounded-lg border border-emerald-400/30">
+                  <p className="text-2xl font-bold text-white">Just ₹499</p>
                 </div>
               </div>
-            </div>
-            </div>
-            
-            {/* Floating illustrations */}
-            <div className="absolute  top-20 sm:top-12 right-4  w-16 h-16 md:w-24 md:h-24 rounded-full bg-teal-100 flex items-center justify-center animate-float">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-14 md:w-14 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+              <div className="bg-gray-800 px-2 py-1 rounded-lg border border-gray-700">
+                <p className="text-sm line-through text-gray-400">₹1,999</p>
+              </div>
             </div>
             
-            <div className="absolute bottom-8 right-24 w-12 h-12 md:w-16 md:h-16 rounded-full bg-cyan-100 flex items-center justify-center animate-float-delayed">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 md:h-8 md:w-8 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+            {/* Subtext - More Concise */}
+            <p className="text-base text-gray-300">
+              Access expert-led fitness, yoga, and nutrition coaching in one simple plan.
+            </p>
+            
+            {/* Benefits - Horizontal Layout to Save Space */}
+            <div className="flex flex-wrap gap-2">
+              <div className="flex items-center bg-gray-800/60 backdrop-blur-sm rounded-lg px-3 py-1 border border-gray-700">
+                <span className="text-emerald-400 mr-1">✅</span>
+                <span className="text-gray-200 text-sm font-medium">100% risk-free</span>
+              </div>
+              <div className="flex items-center bg-gray-800/60 backdrop-blur-sm rounded-lg px-3 py-1 border border-gray-700">
+                <span className="text-emerald-400 mr-1">✅</span>
+                <span className="text-gray-200 text-sm font-medium">No extra charges</span>
+              </div>
+              <div className="flex items-center bg-gray-800/60 backdrop-blur-sm rounded-lg px-3 py-1 border border-gray-700">
+                <span className="text-emerald-400 mr-1">✅</span>
+                <span className="text-gray-200 text-sm font-medium">Just ₹16 per day!</span>
+              </div>
+            </div>
+            
+            {/* Super Prominent Primary CTA */}
+            <div className="pt-2">
+              <button className="w-full bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 transition-all duration-300 text-white font-bold py-4 px-8 rounded-lg text-lg shadow-lg shadow-emerald-500/20 border border-emerald-400/30 relative overflow-hidden group">
+                <div className="absolute inset-0 w-1/3 bg-white/20 skew-x-12 group-hover:translate-x-96 transition-transform duration-700"></div>
+                <span>Get Fit for ₹499 – Join Now!</span>
+              </button>
+            </div>
+            
+            {/* Secondary CTAs in a Compact Row */}
+            <div className="grid grid-cols-2 gap-3">
+              <button className="bg-gray-800 hover:bg-gray-700 border border-emerald-500/30 transition-colors duration-300 text-white font-medium py-2 px-3 rounded-lg text-sm lg:text-base">
+                Transform Your Health
+              </button>
+              <button className="bg-gray-800 hover:bg-gray-700 border border-emerald-500/30 transition-colors duration-300 text-white font-medium py-2 px-3 rounded-lg text-sm lg:text-base">
+                Limited Slots Left!
+              </button>
+            </div>
+            
+            {/* Limited Time Badge - More Compact */}
+            <div className="flex items-center justify-start gap-2">
+              <div className="h-2 w-2 bg-red-500 rounded-full animate-pulse"></div>
+              <p className="text-gray-400 text-xs font-medium">Limited time offer • Only 30 spots remaining</p>
             </div>
           </div>
           
-          {/* Bottom wave pattern */}
-          <div className="h-12 bg-gradient-to-r from-teal-500 to-teal-400 relative overflow-hidden">
-            <div className="absolute inset-0">
-              <svg viewBox="0 0 120 28" className="w-full h-full">
-                <defs>
-                  <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
-                </defs>
-                <use xlinkHref="#wave" className="wave fill-white/20" />
-                <use xlinkHref="#wave" className="wave fill-white/10" x="50" y="0" />
-                <use xlinkHref="#wave" className="wave fill-white/5" x="25" y="1" />
-              </svg>
+          {/* Right Content - Media Area */}
+          <div className="relative h-full flex items-center justify-center">
+            {/* Premium Border Effect */}
+            <div className="absolute inset-0 lg:inset-6 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-xl opacity-30 blur lg:blur-md"></div>
+            
+            {/* Main Content Area */}
+            <div className="relative bg-gradient-to-tr from-gray-900 to-gray-800 rounded-xl p-4 lg:p-6 border border-gray-700 w-full h-5/6 flex flex-col">
+              {/* Discount Badge */}
+              <div className="absolute -top-3 -right-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-1 rounded-lg font-bold shadow-lg transform rotate-3 border border-amber-400/30 text-sm">
+                75% OFF
+              </div>
+              
+              {/* Video Button Area */}
+              <div className="flex-1 flex flex-col items-center justify-center relative">
+                {/* Circular Background Effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-cyan-500/5 to-transparent rounded-full blur-xl"></div>
+                
+                {/* Play Button */}
+                <div className="relative">
+                  <div className="absolute inset-0 bg-emerald-500/30 rounded-full blur-md"></div>
+                  <div className="relative rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 w-16 h-16 lg:w-20 lg:h-20 flex justify-center items-center border border-emerald-400/50 shadow-lg shadow-emerald-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 lg:h-10 lg:w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+                
+                {/* Text */}
+                <p className="text-gray-400 mt-4 text-center text-sm">Watch how our program transforms lives</p>
+              </div>
+              
+              {/* What You'll Get */}
+              <div className="mt-4 bg-gray-800/80 rounded-lg p-3">
+                <h3 className="text-white text-sm font-medium mb-2">What You&apos;ll Get:</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    "Health assessment",
+                    "Wellness plan",
+                    "Nutrition guidance",
+                    "Fitness consultation",
+                    "Mental wellness"
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center">
+                      <div className="bg-emerald-500 rounded-full w-4 h-4 flex justify-center items-center mr-2 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="text-gray-200 text-xs">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Social Proof */}
+              <div className="mt-3 bg-gray-800/60 backdrop-blur-sm rounded-lg p-3 border border-gray-700">
+                <div className="flex justify-between items-center">
+                  <div className="flex -space-x-2">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className={`w-6 h-6 rounded-full bg-gradient-to-r from-gray-${500 + i*100} to-gray-${400 + i*100} border-2 border-gray-800`}></div>
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-xs"><span className="text-emerald-400 font-bold">2,500+</span> joined</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -137,5 +151,4 @@ const HeroSection: React.FC = () => {
   );
 };
 
-export default HeroSection;
-
+export default  HeroSection;

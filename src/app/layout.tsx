@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ScrollToTop from "@/components/common/ScrollToTop";
+// import ScrollToTop from "@/components/common/ScrollToTop";
 
 
 
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <ScrollToTop/>
+    {/* <ScrollToTop/> */}
       <body
       >
         {children}
