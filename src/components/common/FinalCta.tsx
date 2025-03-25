@@ -155,7 +155,7 @@ const FinalPushCTA: React.FC = () => {
   const renderCloseButton = () => (
     <button
       onClick={closeCTA}
-      className={`fixed bottom-[calc(100%-18px)] lg:bottom-[calc(100%-40px)] right-4 z-50 w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center transition-all duration-300 hover:bg-red-500 ${
+      className={`fixed bottom-[calc(100%-30px)] lg:bottom-[calc(100%-40px)] right-4 z-50 w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center transition-all duration-300 hover:bg-red-500 ${
         state.visible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
       }`}
     >

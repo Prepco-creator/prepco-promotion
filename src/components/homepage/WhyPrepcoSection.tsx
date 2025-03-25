@@ -74,12 +74,11 @@ const WhyPrepcoSection: React.FC = () => {
   
 
   return (
-    <div className="bg-black py-16 lg:py-6 mt-48 md:mt-0">
+    <div className="bg-black  lg:py-6 ">
       <div className="container mx-auto px-4 pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           {/* Left Side - Wellness Journey Content */}
           <div className="space-y-6">
-        
             <TitleBox title='Why this Plan?'/>
             <h3 className="text-2xl font-bold text-white">
               A complete, personalized wellness journey to help you feel your best!

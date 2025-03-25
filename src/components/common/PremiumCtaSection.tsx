@@ -90,7 +90,7 @@ const PremiumCtaSection: React.FC = () => {
   };
 
   return (
-    <div className="relative py-2 -mt-12 md:-mt-0">
+    <div className="relative py-2 -mt-0 md:-mt-0">
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Title */}
         <div className="flex justify-center items-center mb-6">
