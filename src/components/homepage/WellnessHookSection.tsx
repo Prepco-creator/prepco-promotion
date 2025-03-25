@@ -1,7 +1,5 @@
-"use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import CTAButton from "@/components/common/Ctabutton"; // Ensure the correct import path
+import CTAButton from "@/components/common/Ctabutton"; 
 
 
 
