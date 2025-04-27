@@ -2,15 +2,9 @@
 
 import React from "react";
 import CTAButton from "../common/Ctabutton";
-import { CheckCircle } from "lucide-react";
 
-const features = [
-  "100% risk-free",
-  "No extra charges",
-  "Just ₹16 per day!",
-  "Transform Your Health",
-  "Limited Slots Left!",
-];
+
+
 
 const HeroSection: React.FC = () => {
   return (
@@ -30,12 +24,12 @@ const HeroSection: React.FC = () => {
 
           {/* Subtext */}
           <p className="text-gray-300 text-base">
-            India's 1st 30-day trial plan for health
+            {"India's 1st 30-day trial plan for health"}
           </p>
 
           {/* Warning Message */}
           <p className="text-yellow-400 text-base font-medium">
-            Warning - Do not register if you don't want to have a healthy life
+            {"Warning - Do not register if you don't want to have a healthy life"}
           </p>
 
           {/* Ready message */}

@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import CTAButton from '../common/Ctabutton';
-import TitleBox from '../common/TitleBox';
 import { CheckCircle, Play } from "lucide-react";
 
 const benefits = [
