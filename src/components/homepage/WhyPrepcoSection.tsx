@@ -4,88 +4,41 @@ import React, { useState, useEffect } from 'react';
 
 import CTAButton from '../common/Ctabutton';
 import TitleBox from '../common/TitleBox';
+import { CheckCircle, Play } from "lucide-react";
+
+const benefits = [
+  "Health assessment",
+  "Wellness plan",
+  "Nutrition guidance",
+  "Fitness consultation",
+  "Mental wellness",
+];
 
 
-// Define interfaces for type safety
-interface AddOnOption {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-}
+
 
 const WhyPrepcoSection: React.FC = () => {
   // Strongly typed state
-  const [selectedAddOn, setSelectedAddOn] = useState<string | null>(null);
-  const [progressValue, setProgressValue] = useState<number>(0);
-
-  // Centralized add-on options with type annotation
-  const addOnOptions: AddOnOption[] = React.useMemo(() => [
-    {
-      id: "dermatology",
-      title: "Virtual Dermatology Consultation",
-      description: "Expert skincare advice to address your concerns.",
-      icon: "👨‍⚕️"
-    },
-    {
-      id: "dental",
-      title: "Virtual Dental Consultation", 
-      description: "Online check-ups and personalized dental care tips.",
-      icon: "🦷"
-    },
-    {
-      id: "physio-discount",
-      title: "25% Off Online Physiotherapy Treatments",
-      description: "Get 25% off on online physiotherapy for pain relief and recovery.",
-      icon: "💆"
-    },
-    {
-      id: "physio-consult",
-      title: "Virtual Physio Consultation",
-      description: "Personalized physiotherapy consultations to improve mobility and reduce pain.",
-      icon: "🏋️"
-    }
-  ], []);
-
-  // Memoized handler to prevent unnecessary re-renders
-  const handleAddOnSelect = React.useCallback((id: string) => {
-    setSelectedAddOn(id);
-    setProgressValue(0);
-    
-    // Use requestAnimationFrame for smoother animations
-    requestAnimationFrame(() => {
-      setTimeout(() => setProgressValue(100), 100);
-    });
-  }, []);
+ 
+ 
 
 
 
-  // Effect with proper cleanup
-  useEffect(() => {
-    const timer = setTimeout(() => setProgressValue(100), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Find selected add-on helper function
-  const getSelectedAddOn = React.useMemo(() => 
-    addOnOptions.find(o => o.id === selectedAddOn), 
-    [selectedAddOn, addOnOptions]
-  );
   
-
+  
   return (
     <div className="bg-black  lg:py-6 ">
       <div className="container mx-auto px-4 pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           {/* Left Side - Wellness Journey Content */}
           <div className="space-y-6">
-            <TitleBox title='Why this Plan?'/>
+          
             <h3 className="text-2xl font-bold text-white">
               A complete, personalized wellness journey to help you feel your best!
             </h3>
             
             <div className="space-y-4">
-              {/* Benefits mapped from an array for better maintainability */}
+             
               {[
                 { 
                   number: "1", 
@@ -132,125 +85,46 @@ const WhyPrepcoSection: React.FC = () => {
             </div>
           </div>
           
-          {/* Right Side - Interactive Add-On Wheel */}
-          <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/30 via-teal-500/30 to-emerald-500/30 rounded-2xl blur-xl opacity-70"></div>
-            
-            <div className="relative p-6 bg-gray-900 rounded-xl border border-gray-700">
-              <p className="text-white italic mb-6">
-              &quot;Enhance your wellness with your choice of one add-on!&quot;
-              </p>
-              
-              {/* Progress Circle */}
-              <div className="relative w-full mx-auto mb-8 mt-4">
-                <div className="flex flex-col items-center">
-                  <div className="relative h-40 w-40">
-                    <svg className="absolute -rotate-90" viewBox="0 0 100 100" width="100%" height="100%">
-                      <circle 
-                        cx="50" cy="50" r="40" 
-                        fill="none" 
-                        stroke="#2D3748" 
-                        strokeWidth="8"
-                      />
-                      <circle 
-                        cx="50" cy="50" r="40" 
-                        fill="none" 
-                        stroke="#10B981" 
-                        strokeWidth="8"
-                        strokeDasharray="251.2"
-                        strokeDashoffset={251.2 - (251.2 * progressValue) / 100} 
-                        strokeLinecap="round"
-                        className="transition-all duration-1000 ease-out"
-                      />
-                    </svg>
-                    
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-4xl">
-                        {getSelectedAddOn?.icon || "🎁"}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="text-center mt-4">
-                    <h4 className="text-xl font-bold text-emerald-400">
-                      {getSelectedAddOn?.title || "Select Your Add-On"}
-                    </h4>
-                    <p className="text-gray-300 text-sm mt-1">
-                      {getSelectedAddOn?.description || "Click an option below to customize your plan"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Interactive Add-On Buttons */}
-              <div className="grid grid-cols-2 gap-3">
-                {addOnOptions.map((option) => (
-                  <button 
-                    key={option.id}
-                    onClick={() => handleAddOnSelect(option.id)}
-                    className={`
-                      relative p-3 rounded-lg transition-all duration-300 overflow-hidden
-                      flex flex-col items-center text-center
-                      ${selectedAddOn === option.id 
-                        ? 'bg-gradient-to-b from-emerald-700 to-emerald-900 border-2 border-emerald-400 shadow-lg shadow-emerald-500/20' 
-                        : 'bg-gray-800 hover:bg-gray-700 border border-gray-600'}
-                    `}
-                  >
-                    <div className={`
-                      text-2xl mb-1
-                      ${selectedAddOn === option.id ? 'scale-110 transition-transform duration-300' : ''}
-                    `}>{option.icon}</div>
-                    <div className="text-white text-sm font-medium">{option.title.split(' ')[0]}</div>
-                    
-                    {selectedAddOn === option.id && (
-                      <div className="absolute -right-1 -top-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                        <span className="text-white text-xs">✓</span>
-                      </div>
-                    )}
-                  </button>
-                ))}
-              </div>
-              
-              {/* Interactive Stats Section */}
-              <div className="mt-6 relative overflow-hidden rounded-lg">
-                <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="w-full">
-                      <div className="mb-3">
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm text-white">Plan Completion</span>
-                          <span className="text-sm text-emerald-400">
-                            {selectedAddOn ? '100%' : '83%'}
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-700 rounded-full h-2">
-                          <div 
-                            className="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-1000"
-                            style={{ width: selectedAddOn ? '100%' : '83%' }}
-                          ></div>
-                        </div>
-                      </div>
-                      
-                      <div className="mb-3">
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm text-white">Potential Results</span>
-                          <span className="text-sm text-emerald-400">
-                            {selectedAddOn ? '97%' : '75%'}
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-700 rounded-full h-2">
-                          <div 
-                            className="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-1000"
-                            style={{ width: selectedAddOn ? '97%' : '75%' }}
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="relative flex justify-center items-center h-full">
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 opacity-30 rounded-xl lg:blur-md"></div>
+
+      {/* Content Box */}
+      <div className="relative flex flex-col bg-gray-900 border border-gray-700 p-6 rounded-xl h-5/6 w-full lg:p-8">
+        {/* Discount Badge */}
+        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-amber-500 to-orange-500 text-sm font-bold px-4 py-1 border border-amber-400/30 rounded-lg shadow-lg rotate-3 text-white">
+          75% OFF
+        </div>
+
+        {/* Video Play Button */}
+        <div className="flex flex-col items-center justify-center flex-1 relative">
+          <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-cyan-500/5 to-transparent rounded-full blur-xl"></div>
+          <div className="relative flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-r from-emerald-600 to-emerald-500 border border-emerald-400/50 rounded-full shadow-lg shadow-emerald-500/20">
+            <Play className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
           </div>
+          <p className="mt-4 text-sm text-center text-gray-400">
+            Watch how our program transforms lives
+          </p>
+        </div>
+
+        {/* What You’ll Get */}
+        <div className="mt-4 p-3 bg-gray-800/80 rounded-lg">
+          <h3 className="text-sm font-medium text-white mb-2">
+            What You&apos;ll Get:
+          </h3>
+          <div className="grid grid-cols-2 gap-2">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="flex items-center">
+                <div className="flex justify-center items-center w-4 h-4 bg-emerald-500 rounded-full mr-2">
+                  <CheckCircle className="w-3 h-3 text-white" />
+                </div>
+                <span className="text-gray-200 text-sm">{benefit}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
         </div>
         
         <div className="pt-10 text-center">

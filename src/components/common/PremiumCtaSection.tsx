@@ -95,7 +95,7 @@ const PremiumCtaSection: React.FC = () => {
         {/* Section Title */}
         <div className="flex justify-center items-center mb-6">
           
-          <TitleBox title='How it Works?'/>
+          <TitleBox title='Get Ready for a personalised health and wellness journey '/>
         </div>
 
         {/* Premium CTA Boxes */}
@@ -146,47 +146,7 @@ const PremiumCtaSection: React.FC = () => {
           </div>
         </div>
 
-        {/* No Hidden Fees Banner */}
-        <div className="relative mt-5 overflow-hidden transition-all duration-500 transform hover:scale-105">
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 opacity-80 animate-gradient-x"></div>
-          
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -inset-full w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,_white_0%,_transparent_20%)] opacity-30 animate-pulse"></div>
-          </div>
-          
-          <div className="absolute inset-[3px] bg-gray-900 rounded-xl z-10"></div>
-          
-          <div className="relative z-20 px-8 py-10 rounded-xl bg-opacity-80 text-center flex flex-col items-center">
-            <div className="mb-2">
-              <span className="inline-block px-4 py-1 bg-gray-800 bg-opacity-70 rounded-full text-sm font-semibold text-emerald-300 border border-emerald-500/30 animate-bounce">
-                LIMITED TIME OFFER
-              </span>
-            </div>
-            
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              <span className="relative">
-                <span className="absolute -inset-1 blur-sm bg-emerald-500/30"></span>
-                <span className="relative text-emerald-300">No hidden fees</span>
-              </span>
-              , no contracts, no surprises!
-            </h3>
-            
-            <p className="text-2xl font-bold text-white mb-6">
-              Just <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 to-cyan-200">guaranteed results in 30 days!</span>
-            </p>
-            
-            {/* Premium seal */}
-            <div className="absolute -right-6 -top-6 w-24 h-24 rotate-12">
-              <div className="absolute inset-0 bg-emerald-500 rounded-full animate-pulse opacity-70"></div>
-              <div className="absolute inset-1 bg-gray-900 rounded-full flex items-center justify-center">
-                <div className="text-center">
-                  <span className="block text-xs font-bold text-emerald-300">100%</span>
-                  <span className="block text-xs font-bold text-emerald-300">GUARANTEED</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback} from 'react';
 import { X, ChevronUp } from 'lucide-react';
+import CTAButton from './Ctabutton';
 
 interface CTAState {
   visible: boolean;
@@ -132,9 +133,8 @@ const FinalPushCTA: React.FC = () => {
             </h2>
 
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
-              <button className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 transition-all duration-300 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg shadow-emerald-500/20 border border-emerald-400/30 relative overflow-hidden group whitespace-nowrap">
-                <span>Start My 30-Day Trial Now →</span>
-              </button>
+            
+              <CTAButton title="Start My 30-Day Trial Now →" />
             </div>
 
             <div className="mt-4 text-gray-300 text-center lg:text-left">

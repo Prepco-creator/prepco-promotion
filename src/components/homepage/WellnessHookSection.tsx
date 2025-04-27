@@ -17,11 +17,11 @@ const WhatsIncludedSection: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-300">All Premium Services</span>
-                  <span className="text-white font-medium">₹1,999</span>
+                  <span className="text-white font-medium">₹12,500</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-300">Limited-Time Discount</span>
-                  <span className="text-emerald-400 font-medium">- ₹1,500</span>
+                  <span className="text-emerald-400 font-medium">- ₹2,000</span>
                 </div>
                 <div className="h-px bg-gray-700 my-2"></div>
                 <div className="flex justify-between">
@@ -35,7 +35,7 @@ const WhatsIncludedSection: React.FC = () => {
             <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-lg border-l-4 border-emerald-500 md:flex-1">
               <div className="text-center">
                 <div className="text-5xl font-bold mb-2">
-                  <span className="text-white">75</span>
+                  <span className="text-white">96</span>
                   <span className="text-emerald-400">%</span>
                 </div>
                 <p className="text-lg text-white font-medium">SAVINGS</p>
@@ -64,7 +64,7 @@ const WhatsIncludedSection: React.FC = () => {
 
           {/* CTA Button */}
           <div className="flex flex-col md:flex-row justify-center gap-4 max-w-2xl mx-auto">
-            <CTAButton title="₹1,999 Worth of Value for Just ₹499 – Grab It!" />
+            <CTAButton title="₹12,500 Worth of Value for Just ₹499 – Grab It!" />
           </div>
         </div>
       </div>

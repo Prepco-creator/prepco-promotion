@@ -6,6 +6,8 @@ import HowItWorksSection from './HowItWorksSection'
 import PremiumOfferComponent from './PremiumOfferComponent'
 import FAQSection from './FomoAndFaqSection'
 import FinalPushCTA from '../common/FinalCta'
+import VideoBlock from './VideoBlock'
+import BonusServiceComponent from './BonusServiceComponent'
 
 
 export default function Landingpage() {
@@ -13,8 +15,10 @@ export default function Landingpage() {
     <div className="lg:px-4">
         <HeroSection/>
     <WhyPrepcoSection/>
-    <WhatsIncludedSection/>
     <HowItWorksSection/>
+    <VideoBlock/>
+    <BonusServiceComponent/>
+    <WhatsIncludedSection/>
     <PremiumOfferComponent/>
     {/* <TestimonialsComponent/> */}
     <FAQSection/>
