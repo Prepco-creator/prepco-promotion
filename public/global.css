@@ -1,0 +1,22 @@
+/* Remove the ::after content */
+.swiper-button-next:after, 
+.swiper-button-prev:after {
+  content: none !important;
+}
+
+/* Instead, use your own icons directly in the element */
+.swiper-button-next,
+.swiper-button-prev {
+  /* Your styling for the buttons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.swiper-pagination-bullet {
+  background-color: rgb(255, 255, 255);
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #10b981; /* emerald-500 */
+}

@@ -1,34 +1,49 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import CTAButton from '../common/Ctabutton';
-import { CheckCircle, Play } from "lucide-react";
+// import { CheckCircle, Play } from "lucide-react";
 
-const benefits = [
-  "Health assessment",
-  "Wellness plan",
-  "Nutrition guidance",
-  "Fitness consultation",
-  "Mental wellness",
-];
+// const benefits = [
+//   "Health assessment",
+//   "Wellness plan",
+//   "Nutrition guidance",
+//   "Fitness consultation",
+//   "Mental wellness",
+// ];
 
 
 
 
 const WhyPrepcoSection: React.FC = () => {
   // Strongly typed state
- 
- 
-
-
-
+  const [selectedService, ] = useState<string | null>(null);
+  const [animateItems, setAnimateItems] = useState<boolean>(false);
+  
+  // Handle dermatology selection and animation
+  useEffect(() => {
+    if (selectedService === "dermatology") {
+      // Add a slight delay before starting the animation
+      const timer = setTimeout(() => {
+        setAnimateItems(true);
+        
+        // Auto-scroll to benefits list
+        const benefitsList = document.getElementById('benefits-list');
+        if (benefitsList) {
+          benefitsList.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [selectedService]);
   
   
   return (
-    <div className="bg-black  lg:py-6 ">
+    <div className="bg-black lg:py-6">
       <div className="container mx-auto px-4 pt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="grid grid-cols-1 gap-10 items-center">
           {/* Left Side - Wellness Journey Content */}
           <div className="space-y-6">
           
@@ -36,7 +51,7 @@ const WhyPrepcoSection: React.FC = () => {
               A complete, personalized wellness journey to help you feel your best!
             </h3>
             
-            <div className="space-y-4">
+            <div id="benefits-list" className="space-y-4">
              
               {[
                 { 
@@ -69,10 +84,20 @@ const WhyPrepcoSection: React.FC = () => {
                   title: "Self-Grooming Tips & Guidance", 
                   description: "Expert tips on skincare, hair care, and grooming for your best self." 
                 }
-              ].map((benefit) => (
+              ].map((benefit, index) => (
                 <div 
                   key={benefit.number} 
-                  className="flex items-start bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-4 border-l-4 border-emerald-500 shadow-lg"
+                  className={`
+                    flex items-start rounded-lg p-4 border-l-4 border-emerald-500 shadow-lg
+                    transition-all duration-700 ease-in-out
+                    ${animateItems 
+                      ? 'bg-gradient-to-r from-gray-800 to-gray-900' 
+                      : 'bg-gray-800'}
+                    ${animateItems && 'transform-gpu'}
+                  `}
+                  style={{
+                    transitionDelay: animateItems ? `${index * 150}ms` : '0ms'
+                  }}
                 >
                   <span className="text-emerald-400 mr-3 text-lg mt-0.5">{benefit.number}</span>
                   <div>
@@ -84,18 +109,18 @@ const WhyPrepcoSection: React.FC = () => {
             </div>
           </div>
           
-          <div className="relative flex justify-center items-center h-full">
-      {/* Background Glow */}
+          {/* <div className="relative flex justify-center items-center h-full">
+     
       <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 opacity-30 rounded-xl lg:blur-md"></div>
 
-      {/* Content Box */}
+    
       <div className="relative flex flex-col bg-gray-900 border border-gray-700 p-6 rounded-xl h-5/6 w-full lg:p-8">
-        {/* Discount Badge */}
+    
         <div className="absolute -top-3 -right-3 bg-gradient-to-r from-amber-500 to-orange-500 text-sm font-bold px-4 py-1 border border-amber-400/30 rounded-lg shadow-lg rotate-3 text-white">
           75% OFF
         </div>
 
-        {/* Video Play Button */}
+
         <div className="flex flex-col items-center justify-center flex-1 relative">
           <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-cyan-500/5 to-transparent rounded-full blur-xl"></div>
           <div className="relative flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-r from-emerald-600 to-emerald-500 border border-emerald-400/50 rounded-full shadow-lg shadow-emerald-500/20">
@@ -106,7 +131,7 @@ const WhyPrepcoSection: React.FC = () => {
           </p>
         </div>
 
-        {/* What You’ll Get */}
+    
         <div className="mt-4 p-3 bg-gray-800/80 rounded-lg">
           <h3 className="text-sm font-medium text-white mb-2">
             What You&apos;ll Get:
@@ -123,7 +148,7 @@ const WhyPrepcoSection: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
         </div>
         
         <div className="pt-10 text-center">
